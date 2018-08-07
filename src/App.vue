@@ -31,32 +31,43 @@
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
-        <v-layout justify-center align-center>
-          <v-flex shrink>
-            <v-tooltip right>
-              <v-btn
-                slot="activator"
-                :href="source"
-                icon
-                large
-                target="_blank"
-              >
-                <v-icon large>code</v-icon>
-              </v-btn>
-              <span>Source</span>
-            </v-tooltip>
-            <v-tooltip right>
-              <v-btn slot="activator" icon large href="https://codepen.io/johnjleider/pen/qxQWda" target="_blank">
-                <v-icon large>mdi-codepen</v-icon>
-              </v-btn>
-              <span>Codepen</span>
-            </v-tooltip>
+        <v-layout v-layout align-center justify-center column fill-height>
+          <v-flex
+            xs12
+            md12
+          >
+            <v-layout>
+              <transition name="slide-fade" appear>
+                <v-avatar
+                  v-if="show"
+                  :tile=false
+                  :size=260
+                  color="grey lighten-4"
+                >
+                  <img src="@/assets/astrospect_logo.jpg" alt="avatar">
+                </v-avatar>
+              </transition>
+            </v-layout>
           </v-flex>
+          <transition name="slide-fade" appear>
+            <v-flex
+              xs5
+              md12
+            >
+              <v-card dark color="secondary">
+                <v-card-text >
+                  <p class="text-xs-center">
+                    This is the official webpage for Europa's first travelling artist colony.
+                  </p>
+                </v-card-text>
+              </v-card>
+            </v-flex>
+          </transition>
         </v-layout>
       </v-container>
     </v-content>
     <v-footer app fixed>
-      <span>&copy; 2017</span>
+      <span>Atrospect. &copy; 2093</span>
     </v-footer>
   </v-app>
 </template>
@@ -64,10 +75,14 @@
 <script>
   export default {
     data: () => ({
-      drawer: true
+      drawer: false,
+      show: false
     }),
     props: {
       source: String
+    },
+    created () {
+      this.show = true
     }
   }
 </script>
@@ -80,5 +95,16 @@
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.slide-fade-enter-active {
+  transition: all 1s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
